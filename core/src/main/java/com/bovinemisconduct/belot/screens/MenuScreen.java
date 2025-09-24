@@ -1,81 +1,60 @@
 package com.bovinemisconduct.belot.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bovinemisconduct.belot.Belot;
-import com.bovinemisconduct.belot.contextprovider.ContextProvider;
-import com.bovinemisconduct.belot.items.common.Button;
 import com.bovinemisconduct.belot.items.debug.DebugText;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class MenuScreen implements Screen {
-    private final SpriteBatch spriteBatch = ContextProvider.getInstance().getSpriteBatch();
-    private final FitViewport viewport = ContextProvider.getInstance().getViewport();
-    private final Belot game;
+public class MenuScreen extends BelotScreen {
+    private final Stage stage;
+    private final Table table;
+    private final Skin skin;
+    private final DebugText debugText;
 
+    public MenuScreen(Belot game) {
+        super(game);
+        stage = new Stage(viewport, spriteBatch);
+        table = new Table();
+        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+        debugText = new DebugText(this);
+
+        Gdx.input.setInputProcessor(stage);
+        table.setFillParent(true);
+        stage.addActor(table);
+
+    }
 
     @Override
     public void show() {
-
+        addNewGameButton(table, skin);
+        addSettingsButton(table, skin);
+        addAboutButton(table, skin);
+        addExitButton(table, skin);
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(Color.WHITE);
-        viewport.apply();
-        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
-
-        DebugText debugText = new DebugText(this);
-
-        Button startGameButton = new Button(2, 3, 2, 1, "Start Game", () -> {
-            game.setScreen(GameScreen.class);
-            dispose();
-        });
-
-        Button settingsButton = new Button(5, 3, 2, 1, "Setting", () -> {
-            game.setScreen(SettingsScreen.class);
-            dispose();
-        });
-
-        Button about = new Button(2, 1, 2, 1, "About", () -> {
-            game.setScreen(AboutScreen.class);
-            dispose();
-        });
-
-        Button exit = new Button(5, 1, 2, 1, "Exit", () -> {
-            Gdx.app.exit();
-            System.exit(0);
-        });
-
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(startGameButton);
-        inputMultiplexer.addProcessor(settingsButton);
-        inputMultiplexer.addProcessor(about);
-        inputMultiplexer.addProcessor(exit);
-
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        stage.act(delta);
+        stage.draw();
 
         spriteBatch.begin();
 
         debugText.draw();
-        settingsButton.draw();
-        startGameButton.draw();
-        about.draw();
-        exit.draw();
 
         spriteBatch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -95,6 +74,58 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        Gdx.input.setInputProcessor(null);
+        stage.dispose();
+    }
+
+    private void addNewGameButton(Table table, Skin skin) {
+        TextButton newGameButton = new TextButton("New game", skin, "small");
+        table.row().pad(10, 10, 10, 10);
+        table.add(newGameButton).size(200, 50);
+
+        newGameButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(GameScreen.class);
+            }
+        });
+    }
+
+    private void addSettingsButton(Table table, Skin skin) {
+        TextButton settingsButton = new TextButton("Settings", skin, "small");
+        table.row().pad(10, 10, 10, 10);
+        table.add(settingsButton).size(200, 50);
+
+        settingsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(SettingsScreen.class);
+            }
+        });
+    }
+
+    private void addAboutButton(Table table, Skin skin) {
+        TextButton aboutButton = new TextButton("About", skin, "small");
+        table.row().pad(10, 10, 10, 10);
+        table.add(aboutButton).size(200, 50);
+
+        aboutButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(AboutScreen.class);
+            }
+        });
+    }
+
+    private void addExitButton(Table table, Skin skin) {
+        TextButton exitButton = new TextButton("Exit", skin, "small");
+        table.row().pad(10, 10, 10, 10);
+        table.add(exitButton).size(200, 50);
+
+        exitButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
     }
 }

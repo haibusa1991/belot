@@ -10,8 +10,8 @@ import lombok.Getter;
 public class Logo extends Sprite {
     private static final Sprite logo = new Sprite(new Texture("logo.png"));
     private static final Viewport viewport = ContextProvider.getInstance().getViewport();
-    private static final float sizeX = 5.0f;
-    private static final float sizeY = 5.0f;
+    private static final float sizeX = 600f;
+    private static final float sizeY = 600f;
     private static final float posX = (viewport.getWorldWidth() - sizeX) / 2;
     private static final float posY = (viewport.getWorldHeight() - sizeY) / 2;
 
@@ -24,4 +24,5 @@ public class Logo extends Sprite {
     public void draw() {
         logo.draw(ContextProvider.getInstance().getSpriteBatch());
     }
+
 }
