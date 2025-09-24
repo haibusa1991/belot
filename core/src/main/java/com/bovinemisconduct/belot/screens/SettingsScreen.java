@@ -1,25 +1,43 @@
 package com.bovinemisconduct.belot.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bovinemisconduct.belot.Belot;
-import com.bovinemisconduct.belot.contextprovider.ContextProvider;
-import com.bovinemisconduct.belot.items.common.Button;
 import com.bovinemisconduct.belot.items.debug.DebugText;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class SettingsScreen implements Screen {
-    private final SpriteBatch spriteBatch = ContextProvider.getInstance().getSpriteBatch();
-    private final FitViewport viewport = ContextProvider.getInstance().getViewport();
-    private final Belot game;
+public class SettingsScreen extends BelotScreen {
+    private final DebugText debugText;
+    private final Stage stage;
+    private final Skin skin;
+
+    public SettingsScreen(Belot game) {
+        super(game);
+        debugText = new DebugText(this);
+        stage = new Stage(viewport, spriteBatch);
+        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+
+        Gdx.input.setInputProcessor(stage);
+    }
 
     @Override
     public void show() {
+        TextButton backButton = new TextButton("Back", skin, "small");
+        backButton.setPosition(10,10);
+        stage.addActor(backButton);
+
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(MenuScreen.class);
+            }
+        });
 
     }
 
@@ -27,20 +45,12 @@ public class SettingsScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(Color.WHITE);
         viewport.apply();
-        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+        stage.act();
+        stage.draw();
 
-        DebugText debugText = new DebugText(this);
-
-        Button menuButton = new Button(0, 0, 2, 1, "Menu", () -> {
-            game.setScreen(MenuScreen.class);
-            dispose();
-        });
-
-        Gdx.input.setInputProcessor(menuButton);
         spriteBatch.begin();
 
         debugText.draw();
-        menuButton.draw();
 
         spriteBatch.end();
     }

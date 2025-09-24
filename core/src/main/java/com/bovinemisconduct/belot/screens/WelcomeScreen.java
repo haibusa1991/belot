@@ -1,22 +1,24 @@
 package com.bovinemisconduct.belot.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bovinemisconduct.belot.Belot;
-import com.bovinemisconduct.belot.contextprovider.ContextProvider;
 import com.bovinemisconduct.belot.items.debug.DebugText;
 import com.bovinemisconduct.belot.items.welcomescreen.Logo;
-import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 
-@AllArgsConstructor
-public class WelcomeScreen implements Screen {
-    private final Belot game;
-    private final SpriteBatch spriteBatch = ContextProvider.getInstance().getSpriteBatch();
-    private final FitViewport viewport = ContextProvider.getInstance().getViewport();
+public class WelcomeScreen extends BelotScreen {
+    private final Logo logo;
+    private final DebugText debugText;
+
+
+    public WelcomeScreen(Belot game) {
+        super(game);
+
+        logo = new Logo();
+        debugText = new DebugText(this);
+    }
 
     @Override
     public void show() {
@@ -29,9 +31,6 @@ public class WelcomeScreen implements Screen {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
 
-        Logo logo = new Logo();
-        DebugText debugText = new DebugText(this);
-
         spriteBatch.begin();
 
         logo.draw();
@@ -41,7 +40,6 @@ public class WelcomeScreen implements Screen {
 
         if (Gdx.input.isTouched()) {
             game.setScreen(MenuScreen.class);
-            dispose();
         }
     }
 
@@ -67,6 +65,5 @@ public class WelcomeScreen implements Screen {
 
     @Override
     public void dispose() {
-        Gdx.input.setInputProcessor(null);
     }
 }

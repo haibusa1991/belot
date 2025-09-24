@@ -14,7 +14,7 @@ public class ContextProvider {
     private static ContextProvider instance;
 
     private final SpriteBatch spriteBatch = new SpriteBatch();
-    private final FitViewport viewport = new FitViewport(8, 5);
+    private final FitViewport viewport = new FitViewport(800, 600);
     private final FontSizeProvider fontSizeProvider = new FontSizeProvider();
 
     public static ContextProvider getInstance() {
