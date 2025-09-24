@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -15,13 +13,11 @@ import com.bovinemisconduct.belot.items.debug.DebugText;
 public class SettingsScreen extends BelotScreen {
     private final DebugText debugText;
     private final Stage stage;
-    private final Skin skin;
 
     public SettingsScreen(Belot game) {
         super(game);
         debugText = new DebugText(this);
         stage = new Stage(viewport, spriteBatch);
-        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -29,7 +25,7 @@ public class SettingsScreen extends BelotScreen {
     @Override
     public void show() {
         TextButton backButton = new TextButton("Back", skin, "small");
-        backButton.setPosition(10,10);
+        backButton.setPosition(10, 10);
         stage.addActor(backButton);
 
         backButton.addListener(new ChangeListener() {
@@ -50,7 +46,7 @@ public class SettingsScreen extends BelotScreen {
 
         spriteBatch.begin();
 
-        debugText.draw();
+        debugText.draw(game);
 
         spriteBatch.end();
     }

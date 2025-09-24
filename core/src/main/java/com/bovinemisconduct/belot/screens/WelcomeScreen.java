@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.bovinemisconduct.belot.Belot;
 import com.bovinemisconduct.belot.items.debug.DebugText;
 import com.bovinemisconduct.belot.items.welcomescreen.Logo;
-import lombok.extern.java.Log;
 
 public class WelcomeScreen extends BelotScreen {
     private final Logo logo;
@@ -16,7 +15,7 @@ public class WelcomeScreen extends BelotScreen {
     public WelcomeScreen(Belot game) {
         super(game);
 
-        logo = new Logo();
+        logo = new Logo(game);
         debugText = new DebugText(this);
     }
 
@@ -34,7 +33,7 @@ public class WelcomeScreen extends BelotScreen {
         spriteBatch.begin();
 
         logo.draw();
-        debugText.draw();
+        debugText.draw(game);
 
         spriteBatch.end();
 

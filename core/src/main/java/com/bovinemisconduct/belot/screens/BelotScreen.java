@@ -2,16 +2,23 @@ package com.bovinemisconduct.belot.screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bovinemisconduct.belot.Belot;
-import com.bovinemisconduct.belot.contextprovider.ContextProvider;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public abstract class BelotScreen implements Screen {
-    protected final Belot game;
-    protected final SpriteBatch spriteBatch = ContextProvider.getInstance().getSpriteBatch();
-    protected final FitViewport viewport = ContextProvider.getInstance().getViewport();
+    public final Belot game; //TODO: make protected once DebugText is updated
+    protected final SpriteBatch spriteBatch;
+    protected final FitViewport viewport;
+    protected final Skin skin;
+
+    public BelotScreen(Belot game) {
+        this.game = game;
+
+        spriteBatch = game.getContextComponent(SpriteBatch.class);
+        viewport = game.getContextComponent(FitViewport.class);
+        skin = game.getContextComponent(Skin.class);
+    }
 }

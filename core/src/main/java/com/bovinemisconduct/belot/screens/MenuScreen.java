@@ -15,14 +15,12 @@ import com.bovinemisconduct.belot.items.debug.DebugText;
 public class MenuScreen extends BelotScreen {
     private final Stage stage;
     private final Table table;
-    private final Skin skin;
     private final DebugText debugText;
 
     public MenuScreen(Belot game) {
         super(game);
         stage = new Stage(viewport, spriteBatch);
         table = new Table();
-        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
         debugText = new DebugText(this);
 
         Gdx.input.setInputProcessor(stage);
@@ -47,7 +45,7 @@ public class MenuScreen extends BelotScreen {
 
         spriteBatch.begin();
 
-        debugText.draw();
+        debugText.draw(game);
 
         spriteBatch.end();
     }
