@@ -1,9 +1,5 @@
 package com.bovinemisconduct.belot.deckmanager;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.bovinemisconduct.belot.Belot;
 import com.bovinemisconduct.belot.assetmanager.CardAssets;
 
 import java.util.*;
@@ -13,27 +9,22 @@ public class DeckManager {
     private static final int MAX_CUT_SIZE = 27;
 
     private final LinkedList<DeckCard> deck = new LinkedList<>();
-    private final Belot game;
     private final Random random = new Random();
 
-    public DeckManager(Belot game) {
-        this.game = game;
+    public DeckManager() {
         populateDeck();
     }
 
 
     private void populateDeck() {
-        AssetManager assetManager = game.getContextComponent(AssetManager.class);
-
         for (CardSuit suit : CardSuit.values()) {
             for (CardRank rank : CardRank.values()) {
-                String assetName = CardAssets.getAssetName(suit, rank);
 
                 DeckCard card = DeckCard
                         .builder()
                         .cardSuit(suit)
                         .cardRank(rank)
-                        .cardSprite(new Sprite(assetManager.get(assetName, Texture.class)))
+                        .cardSpriteName(CardAssets.getAssetName(suit, rank))
                         .build();
 
                 deck.add(card);

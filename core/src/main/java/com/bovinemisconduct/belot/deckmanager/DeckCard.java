@@ -1,6 +1,5 @@
 package com.bovinemisconduct.belot.deckmanager;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 public class DeckCard {
-    private final Sprite cardSprite;
+    private final String cardSpriteName;
     private final CardSuit cardSuit;
     private final CardRank cardRank;
 
@@ -33,6 +32,6 @@ public class DeckCard {
             case ACE -> "A";
         };
 
-        return String.format("%s%s - %s", rank, suit, cardSprite);
+        return String.format("%s%s - %s", rank, suit, cardSpriteName);
     }
 }

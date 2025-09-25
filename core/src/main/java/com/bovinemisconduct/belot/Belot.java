@@ -41,7 +41,7 @@ public class Belot extends Game {
         context.put(FontSizeProvider.class, new FontSizeProvider());
         context.put(AssetManager.class, AssetManagerFactory.getCompleteManager());
         context.put(Skin.class, new Skin(Gdx.files.internal(Assets.SKIN)));
-        context.put(DeckManager.class, new DeckManager(this));
+        context.put(DeckManager.class, new DeckManager());
     }
 
     private void initViewport() {
