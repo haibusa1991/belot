@@ -12,11 +12,11 @@ import lombok.Getter;
 
 @Getter
 public class Logo extends Sprite {
-    private static final float sizeX = 600f;
-    private static final float sizeY = 600f;
+    private static final float SIZE_X = 600f;
+    private static final float SIZE_Y = 600f;
 
     private final Belot game;
-    private final Sprite logo;
+    private final Sprite logoSprite;
     private final Viewport viewport;
     private final float posX;
     private final float posY;
@@ -24,18 +24,18 @@ public class Logo extends Sprite {
     public Logo(Belot game) {
         this.game = game;
         AssetManager assetmanager = game.getContextComponent(AssetManager.class);
-        logo = new Sprite(assetmanager.get(Assets.LOGO, Texture.class));
+        logoSprite = new Sprite(assetmanager.get(Assets.LOGO, Texture.class));
         viewport = game.getContextComponent(FitViewport.class);
 
-        posY = (viewport.getWorldHeight() - sizeY) / 2;
-        posX = (viewport.getWorldWidth() - sizeX) / 2;
+        posY = (viewport.getWorldHeight() - SIZE_Y) / 2;
+        posX = (viewport.getWorldWidth() - SIZE_X) / 2;
 
-        logo.setSize(sizeX, sizeY);
-        logo.setX(posX);
-        logo.setY(posY);
+        logoSprite.setSize(SIZE_X, SIZE_Y);
+        logoSprite.setX(posX);
+        logoSprite.setY(posY);
     }
 
     public void draw() {
-        logo.draw(game.getContextComponent(SpriteBatch.class));
+        logoSprite.draw(game.getContextComponent(SpriteBatch.class));
     }
 }
