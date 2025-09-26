@@ -53,22 +53,22 @@ public class SettingsScreen extends BelotScreen {
 
     @Override
     public void resize(int width, int height) {
-
+        //not needed
     }
 
     @Override
     public void pause() {
-
+        //not needed
     }
 
     @Override
     public void resume() {
-
+        //not needed
     }
 
     @Override
     public void hide() {
-
+        //not needed
     }
 
     @Override

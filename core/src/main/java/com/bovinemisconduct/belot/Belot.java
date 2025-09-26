@@ -28,11 +28,6 @@ public class Belot extends Game {
         setScreen(WelcomeScreen.class);
     }
 
-    @Override
-    public void render() {
-        super.render();
-    }
-
     private void populateContext() {
         context = new HashMap<>();
 

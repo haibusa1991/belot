@@ -49,20 +49,21 @@ public class WelcomeScreen extends BelotScreen {
 
     @Override
     public void pause() {
-
+        //unused
     }
 
     @Override
     public void resume() {
-
+        //unused
     }
 
     @Override
     public void hide() {
-
+        //unused
     }
 
     @Override
     public void dispose() {
+        //unused
     }
 }
