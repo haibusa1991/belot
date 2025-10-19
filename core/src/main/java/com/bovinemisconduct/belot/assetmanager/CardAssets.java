@@ -3,6 +3,7 @@ package com.bovinemisconduct.belot.assetmanager;
 import com.bovinemisconduct.belot.deckmanager.CardRank;
 import com.bovinemisconduct.belot.deckmanager.CardSuit;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.EnumMap;
@@ -10,6 +11,9 @@ import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CardAssets {
+    @Getter
+    public static final String CARD_BACK_ASSET_NAME = "cardBack";
+
     private static final Map<CardSuit, Map<CardRank, String>> assetNames = populateCardAssets();
 
     private static Map<CardSuit, Map<CardRank, String>> populateCardAssets() {

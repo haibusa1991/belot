@@ -15,7 +15,6 @@ public class DeckManager {
         populateDeck();
     }
 
-
     private void populateDeck() {
         for (CardSuit suit : CardSuit.values()) {
             for (CardRank rank : CardRank.values()) {

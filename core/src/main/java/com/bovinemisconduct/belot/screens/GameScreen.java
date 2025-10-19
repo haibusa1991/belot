@@ -8,14 +8,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.bovinemisconduct.belot.Belot;
+import com.bovinemisconduct.belot.gamemaster.GameMaster;
 import com.bovinemisconduct.belot.items.debug.DebugText;
 
 public class GameScreen extends BelotScreen {
     private final DebugText debugText;
     private final Stage stage;
+    private final GameMaster gameMaster;
 
     public GameScreen(Belot game) {
         super(game);
+        this.gameMaster = game.getContextComponent(GameMaster.class);
         debugText = new DebugText(this);
         stage = new Stage(viewport, spriteBatch);
 
@@ -24,6 +27,8 @@ public class GameScreen extends BelotScreen {
 
     @Override
     public void show() {
+        gameMaster.dealCards(stage);
+
         TextButton backButton = new TextButton("Back", skin, "small");
         backButton.setPosition(10, 10);
         backButton.setSize(100, 50);

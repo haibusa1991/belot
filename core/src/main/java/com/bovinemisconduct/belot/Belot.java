@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.bovinemisconduct.belot.assetmanager.AssetManagerFactory;
 import com.bovinemisconduct.belot.assetmanager.Assets;
 import com.bovinemisconduct.belot.deckmanager.DeckManager;
+import com.bovinemisconduct.belot.gamemaster.GameMaster;
 import com.bovinemisconduct.belot.screens.BelotScreen;
 import com.bovinemisconduct.belot.screens.WelcomeScreen;
 import com.bovinemisconduct.belot.ui.fontsize.FontSizeProvider;
@@ -37,6 +38,7 @@ public class Belot extends Game {
         context.put(AssetManager.class, AssetManagerFactory.getCompleteManager());
         context.put(Skin.class, new Skin(Gdx.files.internal(Assets.SKIN)));
         context.put(DeckManager.class, new DeckManager());
+        context.put(GameMaster.class, new GameMaster(this));
     }
 
     private void initViewport() {
